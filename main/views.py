@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from main.forms import ProductForm, Product
+from django.urls import reverse
+from django.http import HttpResponse
+from django.core import serializers
 
 # Create your views here.
 
@@ -7,10 +12,34 @@ def show_main(request):
 
 
 def show_inventory(request):
+    products = Product.objects.all()
     context = {
-        'name': 'Daxe',
-        'stock' : 10,
-        'price' : 'Rp 500.000',
-        'detail' : 'Kursi kotak dengan 3 warna, hitam, coklat tua, dan krim'
+        'products' : products
     }
     return render(request, "inventory.html", context)
+
+def add_inventory(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "add_inventory.html", context)
+
+def show_xml(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")

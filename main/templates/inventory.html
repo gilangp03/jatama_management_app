@@ -1,15 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
 <div class="nav-bar">
     <h1>
-        Jatama Inventory System
+        Jatama Inventory
     </h1>
     <a href="http://127.0.0.1:8000/"><p>Home</p></a>
     <a href=""><p>Inventory</p></a>
 </div>
-<div class="table">
-    <div class="name">{{ name }}</div>
-    <div class="stock">{{ stock }}</div>
-    <div class="price">{{ price }}</div>
-    <div class="detail">{{ detail }}</div>
-</div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Detail</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.detail }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
+    <br />
 
+    <a href="{% url 'main:add_inventory' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+{% endblock content %}
