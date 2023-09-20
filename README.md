@@ -34,3 +34,50 @@ Sumber :
 1. https://docs.djangoproject.com/en/4.2/
 2. https://csguide.cs.princeton.edu/software/virtualenv#:~:text=In%20a%20nutshell%2C%20Python%20virtual,or%20used%20by%20other%20projects.
 3. https://www.geeksforgeeks.org/difference-between-mvc-mvp-and-mvvm-architecture-pattern-in-android/
+
+
+################################################
+
+Tugas 3: Implementasi Form dan Data Delivery pada Django
+
+No 1. Apa perbedaan antara form POST dan form GET pada Django
+Perbedaan antara form POST dan form GET pada Django adalah form POST dikembalikan oleh method POST yang digunakan untuk request yang bisa mengubah state dari sistem aplikasi, contohnya adalah mengubah database. Sedangkan form GET merupakan form yang didapat dari method GET yang digunakan hanya untuk request yang tidak mengubah state dari sistem aplikasi.
+  
+No 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+XML menjadi tempat penyimpanan dan transmisi data yang diinput dan lebih kompleks karena membutuhkan struktur tag. Sedangkan JSON merupakan tempat penyimpanan dan transmisi data yang lebih mudah dan simpel digunakan karena tidak menggunakan tag sehingga mudah dibaca. Sedangkan HTML berfokus pada cara menampilkan data yang telah diinput.
+ 
+No 3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+JSON lebih sering digunakan pada web modern karena JSON lebih mudah di-parse tanpa tambahan kode, memiliki ukuran file yang lebih kecil, pertukaran data yang lebih cepat, dan text-based.
+
+No 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Jalankan virtual environment terlebih dahulu
+- Buat file html baru bernaam base sebagai kerangka web baru. Isi dengan menambahkan kerangka file html seperti biasa, {% load static %} pada baris pertama,  {% block meta %} dan {% endblock meta %} dalam tag head, dan  {% block content %} dan {% endblock content %} dalam tag body
+- Buka settings dan tambahkan [BASE_DIR / 'templates'], pada object DIRS dalam TEMPLATES
+- Buat file baru bernama forms.py untuk membuat struktur form yang menerima data baru.
+- Buka views.py, lalu buat fungsi baru berparameter request yang menghasilkan formulir yang bisa menambahkan data ketika data disubmit
+- Ubah fungsi show_main pada views.py dengan menambahkan products = Product.objects.all() dan assign products ke object product yang telah dibuat sebelumnya
+- buka urls.py di folder main, import fungsi baru sebelumnya yang dibuat
+- tambahkan path dalam urlpatterns pada urls.py di folder main untuk mengakses fungsi yang telah diimport
+- Buat file html baru dengan nama create product dan isi dengan menambahkan form POST dengan tag table berdasarkan file form.py dan tag input submit
+- Buka main.html dan tambahkan kode yang akan ditampilkan di block content untuk menampilkan data dan tombol add new product
+- Buka views.py dan import HttpResponse dan Serializer
+- buat fungsi baru dengan nama show_xml. Tambahkan variabel beranam data untuk menyimpan hasil query. Return fungsi berupa HttpResponse berisi parameter data hasil query berupa XML dan parameter content_type berupa xml
+- Import fungsi show_xml dan tambahkan path url show_xml pada urls.py
+- Jika ingin mengembalikan data berdasarkan id, buat fungsi yang sama lalu ubah nama fungsi dengan berdasarkan id, lalu ubah variabel data dengan Product.objects.filter(pk=id). Hasil return function berupa HttpResponse berisi parameter yang sama. Tambahkan path url yang berbeda untuk mengakses fungsi baru tadi 
+- Untuk mengembalikan data dalam bentuk JSON, cara hampir sama dengan cara di atas. Yang membedakan adalah isi fungsi serializer.serialize berupa string json dan content_type nya adalah "application/json". Hal ini juga sama untuk mengembalikan data JSON berdasarkan ID
+- Buka POSTman, buat request baru dengan method GET dan url http://localhost:8000/xml atau http://localhost:8000/json.
+- Klik tombol send
+- Hasil response dari request dapat dilihat pada bagian bawah Postman
+
+screenshot postman
+
+HTML
+![Alt text](html.png)
+XML
+![Alt text](xml.png)
+JSON
+![Alt text](json.png)
+XML by id
+![Alt text](xmlbyid.png)
+JSON by id
+![Alt text](jsonbyid.png)
