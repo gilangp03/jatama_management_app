@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="nav-bar">
-        <h1>Jatama Management App</h1>
-        <a href=""><p>Home</p></a>
-        <a href="inventory/"><p>Inventory</p></a>
-    </div>
-    <div class="content">
-        <p>Nama : Gilang Fajar Pratama</p>
-        <p>NPM  : 2206082631</p>
-        <p>Kelas PBP : D</p>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="nav-bar">
+    <h1>Jatama Management App</h1>
+    <a href=""><p>Home</p></a>
+    <a href="inventory/"><p>Inventory</p></a>
+</div>
+<div class="content">
+    <h3>Created by</h3>
+    <p>Nama : Gilang Fajar Pratama</p>
+    <p>NPM  : 2206082631</p>
+    <p>Kelas PBP : D</p>
+</div>
+
+<h3>Welcome {{ name }}</h3>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<a href="{% url 'logout' %}">
+    <button>
+        Logout
+    </button>
+</a>    
+{% endblock content %}

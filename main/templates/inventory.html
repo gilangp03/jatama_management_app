@@ -7,6 +7,7 @@
     <a href="http://127.0.0.1:8000/"><p>Home</p></a>
     <a href=""><p>Inventory</p></a>
 </div>
+<h3>Your username: {{ name }}</h3>
     <table>
         <tr>
             <th>Name</th>
@@ -26,7 +27,7 @@
 
     <br />
 
-    <a href="{% url 'main:add_inventory' %}">
+    <a href="{% url 'add_inventory' %}">
         <button>
             Add New Product
         </button>

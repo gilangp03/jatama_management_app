@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<h1 style="text-align: center;">Jatama Management App</h1>
+<div class = "login" style="background-color: greenyellow; padding: 15px 20px 15px 20px; position: relative;">
+    <h3>Login to your account</h3>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div>
+            <h5>Username</h5>
+            <input type="text" name="username" placeholder="Username" class="form-control">
+        </div>
+        <div>
+            <h5>Password</h5>
+            <input type="password" name="password" placeholder="Password" class="form-control">
+        </div>
+        <div>
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+        <div class="button">
+            <input class="btn login_btn" type="submit" value="Login">
+        </div>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}     
+        
+    Don't have an account yet? <a href="{% url 'register' %}">Register Now</a>
+
+</div>
+
+{% endblock content %}

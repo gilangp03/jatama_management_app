@@ -81,3 +81,44 @@ XML by id
 ![Alt text](xmlbyid.png)
 JSON by id
 ![Alt text](jsonbyid.png)
+
+checklist Tugas 4
+
+No 1. Django UserCreationForm, kelebihan dan kekurangan
+Django UserCreationForm merupakan ModelForm turunan dari BaseUserCreationForm yang membuat user baru setelah menerima perintah. UserCreationForm memiliki tiga fields, yaitu username, password1, dan password2. Password2 ini digunakan untuk memverifikasi ulang password1 yang ingin didaftarkan. UserCreationForm Kelebihan dari UserCreationForm adalah class ini mencegah pengguna untuk mendaftarkan username baru yang sama dan bersifat case insensitive. Kekurangannya adalah usercreationform tidak memiliki field email yang berguna untuk memverifikasi akun pengguna melalui email dan apabila user lupa dengan password, user dapat mereset password akun pada email user
+
+No2. Perbedaan antara authentication dengan authorizaton adalah Authentication memverifikasi apakah user memang benar telah mendaftarkan akunnya ke dalam sistem. Sedangkan authorization mengatur hal apa saja yang bisa dilakukan oleh akun user yang telah didaftarkan. Peran keduanya sangat penting dalam pengembangan webstie. Authentication memfilter pengguna yang mengakses website sehingga hanya user yang teregistrasi saja yang bisa masuk dan mengakses fitur-fitur dalam website. Sedangkan authorization memberikan access privilege kepada user sehingga user memiliki role masing-masing. Setiap user memiliki hak akses yang berbeda-beda sehingga tidak terjadi penyalahgunaan hak akses oleh user. 
+
+No3. Cookies merupakan informasi dalam bentuk file kecil yang digenerate dan dikirim dari dan menuju web yang disimpan sementara atau selama user berada pada sessionnya di dalam website. Cookies membantu website menginformasikan informasi terkait dengan profil pengguna dan apa saja yang dibuka dan disimpan dalam website. 
+
+No 4. Cookies tidak berbahaya dalam penggunaan web karena cookies tidak menyimpan informasi penting terkait pengguna dan hanya menyimpan informasi terkait dengan penggunaan web oleh pengguna, seperti riwayat pencarian, riwayat akses fitur, dsb. Akan tetapi, Cookies memiliki beberapa resiko. Data cookies bisa dimanfaatkan oleh peretas sebagai raw data untuk menemukan gambaran dari profil pengguna yang bisa menjadi jalan untuk meretas data pengguna tersebut.
+
+No 5.
+- Buka terminal dan jalankan python environment
+- Buka file views.py pada folder main. Import redirect, usercreationfrom, dan messages 
+- Buat fungsi register yang menghasilkan form registrasi dan menghasilkan akun baru
+- Buat file html baru dengan nama register.html sebagai halaman registrasi.
+- Buka urls.py pada folder main. Import fungsi register yang telah dibuat di views.py dan tambahkan path yang mengakses fungsi register
+- Buat fungsi register dengan membuka views.py. Import authenticate dan login. Lalu tambahkan fungsi login yang mengautentikasi user yang meminta username dan password yang telah dibuat.
+- Buat file html baru bernama login.html berisi form yang menuju ke main.html dalama status login.
+- Buka urls.py. Import fungsi login yang telah dibuat di views.py. Tambahkan path login ke dalam urlspatterns
+- Untuk membuat fitur logout, buka views.py. Import modul logout. Buat fungsi log out yang melogout user. Kemudian buka file urls.py. Import fungsi log out yang telah dibuat lalu tambahkan url log out ke urlspatttern.
+- Tambahkan button logout ke dalam main.html
+- Untuk membatasi akses halaman main, buka views.py lalu import login_required, lalu tambahkan "@login_required(login_url='/login')"di atas fungsi show_main
+- Untuk membuat cookie pada app django, buka views.py lalu import datetime, HttpResponseRedirect, dan reverse. Set cookie dengan menambahkan "response = HttpResponseRedirect(reverse("main:show_main"))"  dan    "response.set_cookie('last_login', str(datetime.datetime.now()))" dalam fungsi login
+- Untuk melihat hasilnya, tambahkan " 'last_login': request.COOKIES['last_login']," ke variabel context pada fungsi show main
+- Tambahkan beberapa kode ini dalam fungsi logout:
+    "response = HttpResponseRedirect(reverse('main:login'))"
+    "response.delete_cookie('last_login')" 
+- Tambahkan variabel last_login ke dalam main.html
+- Untuk menghubungkan model data dengan user, buka models.py. Import user lalu tambahkan kode ini dalam class Product
+"user = models.ForeignKey(User, on_delete=models.CASCADE)"
+- Buka views.py pada folder main, tambahkan kode ini dalam fungsi create_product "product = form.save(commit=False)
+     product.user = request.user"
+- Ubah name pada fungsi show main menjadi request.user.username. Filter product yang ingin ditampilkan di show_inventory dengan menambahkan kode berikut " products = Product.objects.filter(user=request.user)"
+- Migrasi model dengan menjalankan perintah python manage.py makemigrations. Pilih 1. Dan ketik angka 1. Lalu terapkan migrasi dengan menjalankan perintah di terminal python manage.py migrate
+
+- Bukti 2 akun 3 data dummy
+
+![Alt text](buktitugas4.png)
+![Alt text](buktitugas4v2.png)
