@@ -68,9 +68,9 @@
     </a>
 
 </div>
-<div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-5 justify-center text-centerw-4/5 max-h-screen overflow-y-auto">
-    <div>
-        <p class="text-xl font-bold">Available Product</p>
+<div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-5 justify-center text-centerw-4/5 max-h-screen">
+    <p class="text-xl font-bold">Available Product</p>
+    <div class="overflow-x-auto">
         {% for product in products %}
         <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-800 m-10">
             <img src="https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png" alt="">
@@ -80,9 +80,9 @@
               <p>Harga  : {{ product.price }}</p>
               <p>Detail : {{ product.detail }}</p>
             </div>
-          </div>
+        </div>
         {% endfor %}
-    </div>
+    </div>   
 </div>
 
 

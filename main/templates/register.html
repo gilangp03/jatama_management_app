@@ -6,11 +6,11 @@
 
 {% block content %}  
 
-<div class = "max-w-md mx-auto bg-blue-400 rounded-xl shadow-md overflow-hidden p-10 justify-center text-center">
+<div class = "bg-slate-300 max-w-md mx-auto rounded-xl shadow-md overflow-hidden p-10 justify-center text-center">
     <h1 class="font-bold text-xl m-10">Jatama Management App</h1>
     <div>
         <h1>Register</h1>  
-    
+
             <form method="POST" >  
                 {% csrf_token %}  
                 <table>  
@@ -18,7 +18,7 @@
                     <tr>  
                         <td></td>
                         <td>
-                                <div class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-10">
+                                <div class="button bg-slate-800 hover:bg-slate-950 text-white font-bold py-2 px-4 rounded m-10">
                                 <input type="submit" name="submit" value="Daftar"/>
                             </div>
                         </td>  
