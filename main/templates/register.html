@@ -6,29 +6,35 @@
 
 {% block content %}  
 
-<div class = "login">
+<div class = "max-w-md mx-auto bg-blue-400 rounded-xl shadow-md overflow-hidden p-10 justify-center text-center">
+    <h1 class="font-bold text-xl m-10">Jatama Management App</h1>
+    <div>
+        <h1>Register</h1>  
     
-    <h1>Register</h1>  
-
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
-
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
-
-</div>  
-
+            <form method="POST" >  
+                {% csrf_token %}  
+                <table>  
+                    {{ form.as_table }}  
+                    <tr>  
+                        <td></td>
+                        <td>
+                                <div class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-10">
+                                <input type="submit" name="submit" value="Daftar"/>
+                            </div>
+                        </td>  
+                    </tr>  
+                </table>  
+            </form>
+    
+        {% if messages %}  
+            <ul>   
+                {% for message in messages %}  
+                    <li>{{ message }}</li>  
+                    {% endfor %}  
+            </ul>   
+        {% endif %}
+    </div>  
+    
+    Have account? <a href="{% url 'login' %}">SignIn</a>
+</div>
 {% endblock content %}

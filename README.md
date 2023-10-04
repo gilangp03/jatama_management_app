@@ -42,7 +42,7 @@ Tugas 3: Implementasi Form dan Data Delivery pada Django
 
 No 1. Apa perbedaan antara form POST dan form GET pada Django
 Perbedaan antara form POST dan form GET pada Django adalah form POST dikembalikan oleh method POST yang digunakan untuk request yang bisa mengubah state dari sistem aplikasi, contohnya adalah mengubah database. Sedangkan form GET merupakan form yang didapat dari method GET yang digunakan hanya untuk request yang tidak mengubah state dari sistem aplikasi.
-  
+
 No 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
 XML menjadi tempat penyimpanan dan transmisi data yang diinput dan lebih kompleks karena membutuhkan struktur tag. Sedangkan JSON merupakan tempat penyimpanan dan transmisi data yang lebih mudah dan simpel digunakan karena tidak menggunakan tag sehingga mudah dibaca. Sedangkan HTML berfokus pada cara menampilkan data yang telah diinput.
  
@@ -122,3 +122,40 @@ No 5.
 
 ![Alt text](buktitugas4.png)
 ![Alt text](buktitugas4v2.png)
+
+Jawaban Pertanyaan Tugas 5
+No 1. Manfaat dari setiap element selector adalah memberikan dan mengubah properti styling pada elemen dalam html baik hanya pada satu jenis elemen saja ataupun semua elemen yang memiliki tag yang sama.
+
+No 2. HTML5 tag yang diketahui seperti tag "<header>" yaitu tag yang merupakan bagian awal dari body. Kemudian tag <main> yang merupakan tag yang menjadi tempat tag elemen konten utama. Kemudian terdapat tag <footer> yang merepresentasikan bagian footer dari website.
+
+No. 3 Perbedaan antara padding dan margin adalah padding merupakan jarak tepi antara elemen-elemen html dalam suatu elemen html. Sedangkan margin merupakan jarak tepi suatu elemen html pada bagian luarnya.
+
+No 4. Perbedaan antara framework CSS Tailwind dan Bootstrap adalah Tailwind lebih bisa dicustomize dan fleksibel. Sedangkan Bootstrap lebih terstruktur dalam desainnya. Tailwind perlu melakukan beberapa tahap penginstalan modul sebelum digunakan dalam html. Sedangkan bootstrap hanya perlu menambahkan script untuk menginstall bootstrap 
+
+No 5.
+- Jalankan virtual environment
+- Buka views.py lalu buat fungsi baru dengan nama edit_product agar produk yang telah didaftar dapat diubah
+- Buat file html baru dengan nama edit_product.html pada folder template
+- Buka urls.py import edit_product yang telah dibuat lalu tambahkan path untuk edit_product
+- Buka file inventory.html. Tambahkan button untuk mengarahkan ke page edit produk
+- Buat fitur delete_product dengan menambahkan fungsi delete product pada views.py . Buka urls.py lalu import fungsi tersebut dan tambahkan path urlnya
+- Buat tombol pada inventory.html yang menghapus produk yang ditambah
+
+- Karena proyek ini menggunakan tailwind css. Berikut cara installnya
+- Jalankan python environment
+- Install django-tailwind dengan python -m pip install django-tailwind
+- lalu install django-browser-reload dengan cara yang sama
+- Buka settings.py ke array InstalledApp dan tambahkan tailwind
+- Buat tailwind css khusus untuk django app dengan menjalankan python manage.py tailwind init. Akan muncul folder baru bernama theme
+- Lalu tambahkan theme ke INSTALLED_APPS dalam file settings.py
+- tambahkan line baru dalam setting.py. "TAILWIND_APP_NAME = 'theme'"
+- Tambah array berikut "INTERNAL_IPS = [
+    "127.0.0.1",
+]"
+- Install tailwind dependencies
+- Buka base.html dan tambahkan  {% tailwind_css %} pada head
+- tambahkan django_browser_reload pada INSTALLED_APPS dalam file settings.py
+- tambahkan ""django_browser_reload.middleware.BrowserReloadMiddleware"," pada MIDDLEWARE di file settings.py
+- Buka urls.py, import include dan path. Tambahkan path reload dari django browser reload. 
+
+- Agar style yang telah dikustom dapat dilihat, jalanakan python manage.py tailwind start dan python manage.py runserver pada terminal secara bersamaan.

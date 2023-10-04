@@ -89,9 +89,25 @@ def login_user(request):
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
     return render(request, 'login.html', context)
-
+    
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('login'))
     response.delete_cookie('last_login')
-    return redirect('login')
+    return response 
+
+def edit_product(request, id):
+    product = Product.objects.get(pk = id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('show_inventory'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = Product.objects.get(pk = id)
+    # Hapus data
+    product.delete()
+    return HttpResponseRedirect(reverse('show_inventory'))

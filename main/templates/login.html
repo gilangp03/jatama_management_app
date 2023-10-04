@@ -1,41 +1,32 @@
 {% extends 'base.html' %}
-
 {% block meta %}
-    <title>Login</title>
-{% endblock meta %}
+<title>Login to your Account - Jatama Management App</title>
 
+{% endblock meta %}
 {% block content %}
-<h1 style="text-align: center;">Jatama Management App</h1>
-<div class = "login" style="background-color: greenyellow; padding: 15px 20px 15px 20px; position: relative;">
-    <h3>Login to your account</h3>
+<div class = "max-w-md mx-auto bg-blue-400 rounded-xl shadow-md overflow-hidden p-10 justify-center text-center">
+    <h1 class="font-bold text-xl my-5">Jatama Management App</h1>
+    <p class="font-bold text-base my-5">Login to your Account</p>
     <form method="POST" action="">
         {% csrf_token %}
         <div>
-            <h5>Username</h5>
-            <input type="text" name="username" placeholder="Username" class="form-control">
+            <h5 class="font-bold">Username</h5>
+            <div>
+                <input type="text" name="username" placeholder="Username" class="form-control bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text">
+            </div>
         </div>
-        <div>
-            <h5>Password</h5>
-            <input type="password" name="password" placeholder="Password" class="form-control">
+        <div class="my-5">
+            <h5 class="font-bold">Password</h5>
+            <div>
+                <input type="password" name="password" placeholder="Password" class="form-control bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text">
+            </div>
         </div>
-        <div>
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
-        <div class="button">
+        <div class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-10">
             <input class="btn login_btn" type="submit" value="Login">
         </div>
     </form>
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}     
-        
     Don't have an account yet? <a href="{% url 'register' %}">Register Now</a>
-
 </div>
-
 {% endblock content %}
+
