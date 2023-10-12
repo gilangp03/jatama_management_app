@@ -18,7 +18,7 @@
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 border-solid">
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div class="overflow-hidden">
-            <table class="min-w-full text-center text-sm font-light border-b-black">
+            <table id="product_table" class="min-w-full text-center text-sm font-light border-b-black">
               <thead
                 class="border-b bg-slate-800 font-medium dark:border-black dark:bg-slate-900">
                 <tr>
@@ -67,8 +67,42 @@
         </button>
     </a>
 
+    <button id= "button_add" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
 </div>
-<div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-5 justify-center text-centerw-4/5 max-h-screen">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="price" name="price"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-5 justify-center w-4/5">
     <p class="text-xl font-bold">Available Product</p>
     <div class="overflow-x-auto">
         {% for product in products %}
@@ -81,9 +115,81 @@
               <p>Detail : {{ product.detail }}</p>
             </div>
         </div>
+        <div class="justify-between">
+            <a href="{% url 'delete_product' product.pk %}">
+                <button class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">
+                   Delete
+                </button>
+            </a>
+            <a href="{% url 'edit_product' product.pk %}">
+                <button class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">
+                    Edit
+                    </button>
+                </a>
+        </div>
         {% endfor %}
     </div>   
 </div>
+<script>
+    function addProduct() {
+        fetch("{% url 'add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
 
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+    
+    async function getProducts() {
+        return fetch("{% url 'get_product_json' %}").then((res) => res.json())
+    }
+
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<thead
+                class="border-b bg-slate-800 font-medium dark:border-black dark:bg-slate-900">
+                <tr>
+                  <th scope="col" class=" px-6 py-4">Name</th>
+                  <th scope="col" class=" px-6 py-4">Stock</th>
+                  <th scope="col" class=" px-6 py-4">Price</th>
+                  <th scope="col" class=" px-6 py-4">Detail</th>
+                  <th scope="col" class=" px-6 py-4">Option</th>
+                </tr>
+              </thead>`
+        
+              products.forEach((item) => {
+            htmlString += `\n
+            <tr class="border-b dark:border-black">
+                        <td class="whitespace-nowrap  px-6 py-4 font-medium">
+                            <p>${ item.fields.name }</p>  
+                        </td>
+                      <td class="whitespace-nowrap  px-6 py-4">${ item.fields.stock }</td>
+                      <td class="whitespace-nowrap  px-6 py-4">${ item.fields.price }</td>
+                      <td class="whitespace-nowrap  px-6 py-4">${ item.fields.detail }</td>
+                      <td>
+                          <div class="justify-between">
+                              <a href="">
+                                  <button class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">
+                                Delete
+                            </button>
+                        </a>
+                        <a href="">
+                        <button class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">
+                            Edit
+                            </button>
+                        </a>
+                    </div>
+                </td>        
+            </tr>
+            ` 
+        })
+        document.getElementById("product_table").innerHTML = htmlString
+    }
+    refreshProducts()
+    
+</script>
 
 {% endblock content %}

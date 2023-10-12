@@ -159,3 +159,14 @@ No 5.
 - Buka urls.py, import include dan path. Tambahkan path reload dari django browser reload. 
 
 - Agar style yang telah dikustom dapat dilihat, jalanakan python manage.py tailwind start dan python manage.py runserver pada terminal secara bersamaan.
+
+Tugas 6
+No 1. Jelaskan antara perbedaan antara asynchronous programming dengan synchronous programming. Asynchronous programming adalah teknik programming yang membuat program menjalankan aktivitas dalam waktu lama dan tetap responsif ketika sebuah aktivitas baru dijalankan dan tidak perlu menunggu aktivitas yang lain selesai. Sedangkan synchronous programming merupakan prinsip programming yang membuat program melakukan suatu task ketika task yang telah dijalankan sebelumnya telah selesai. Synchronous programming juga dikategorikan sebagai blocking architecture.
+
+No 2. Event-driven merupakan paradigma pemrograman yang membuat kode untuk merespon sebuah event yang diberikan oleh user, seperti mengklik sebuah ikon atau teks.
+
+No 3. AJAX dapat melakukan pengunduhan data dari server tanpa menunggu aktivitas yang lain di background. Selain itu, AJAX juga mengubah halaman web secara dinamis sehingga user tidak perlu menunggu. AJAX tidak menerapkan pola click-wait-refresh sehingga AJAX membuat javascript mengirimkan sebuah request tanpa menunggu sebuah respon.
+
+No 4. JQuery merupakan sebuah Javascript library yang membuat javascript mampu melakukan aktivitas seperti HTML traversal, manipulasi file HTML, membuat animasi pada web, melakukan event handling, dan AJAX. Fetch API merupakan sebuah method Javascript yang mendukung interface Javascript untuk mengakses dan memanipulasi bagian dari protokol seperti request dan responses. Fetch API lebih efisien dibandingkan jQuery karena Fetch API merupakan teknologi yang Promised Based. Promised based berarti Fetch API bisa menghubungkan handler dengan aktivitas asynchronous tanpa mempedulikan apakah aktivitasnya sukses atau tidak. Selain itu Fetch API menghubungkan konsep HTTP yang lebih lanjut seperti CORS dan lain-lain.
+
+No  
