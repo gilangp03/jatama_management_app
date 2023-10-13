@@ -169,4 +169,8 @@ No 3. AJAX dapat melakukan pengunduhan data dari server tanpa menunggu aktivitas
 
 No 4. JQuery merupakan sebuah Javascript library yang membuat javascript mampu melakukan aktivitas seperti HTML traversal, manipulasi file HTML, membuat animasi pada web, melakukan event handling, dan AJAX. Fetch API merupakan sebuah method Javascript yang mendukung interface Javascript untuk mengakses dan memanipulasi bagian dari protokol seperti request dan responses. Fetch API lebih efisien dibandingkan jQuery karena Fetch API merupakan teknologi yang Promised Based. Promised based berarti Fetch API bisa menghubungkan handler dengan aktivitas asynchronous tanpa mempedulikan apakah aktivitasnya sukses atau tidak. Selain itu Fetch API menghubungkan konsep HTTP yang lebih lanjut seperti CORS dan lain-lain.
 
-No  
+No  5
+- Jalankan python env terlebih dahulu
+- Buka views.py dan buat fungsi get product by ajax dan add product by ajax
+- Buat modals dengan tailwind css beserta button add
+- Tambahkan script.js pada file inventory.html untuk handle button modals
