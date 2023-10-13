@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="text-white">
-    <div class="inline-flex bg-slate-900 w-full p-5 text-base font-bold justify-between content-center h-1/6">
+    <div class="inline-flex bg-slate-900 w-full p-5 text-base font-extrabold justify-between content-center h-1/6">
         <h1>Jatama Management App</h1>
-    <div class="inline-flex">
-        <a href="http://127.0.0.1:8000/" class="me-5">Home<a>
+        <h3 class="font-bold">Your username: {{ name }}</h3>
+        <div class="inline-flex">
+            <a href="http://127.0.0.1:8000/" class="me-5">Home<a>
             <a href="" class="me-5">Inventory</a>
-        <a href="{% url 'logout' %}" class="button bg-slate-500 hover:bg-slate-700 text-white font-bold rounded py-2 px-4">
-            <button>
-                Logout
-            </button>
-        </a> 
-    </div>
+                <a href="{% url 'logout' %}" class="button bg-slate-500 hover:bg-slate-700 text-white font-bold rounded py-2 px-4">
+                    <button>
+                        Logout
+                    </button>
+                </a> 
+            </div>
 </div>
+<!--
 <div class="my-5 max-w-5xl mx-auto bg-slate-500 rounded-xl shadow-md overflow-hidden p-5 justify-center text-center">
     <h3 class="font-bold">Your username: {{ name }}</h3>
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 border-solid">
@@ -52,7 +54,6 @@
                         </a>
                     </div>
                 </td>
-                    
                     </tr>
               {% endfor %}
               </tbody>
@@ -66,40 +67,16 @@
             Add New Product
         </button>
     </a>
-
-    <button id= "button_add" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+    <button id="openFormModal" class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">Add New Product with AJAX</button>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="form" onsubmit="return false;">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="col-form-label">Price:</label>
-                        <input type="number" class="form-control" id="price" name="price"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="description" name="description"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
-            </div>
-        </div>
-    </div>
+-->
+<div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-10 justify-center w-4/5">
+    <a href="{% url 'add_inventory' %}" class="p-10">
+        <button class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">
+            Add New Product
+        </button>   
+    </a>
+    <button id="openFormModal" class="bg-slate-800 hover:bg-blue-700 font-bold rounded py-2 px-4">Add New Product with AJAX</button>
 </div>
 
 <div class="text-center my-5 max-w-md mx-auto bg-slate-500 rounded-xl shadow-md p-5 justify-center w-4/5">
@@ -130,17 +107,83 @@
         {% endfor %}
     </div>   
 </div>
+
+<div id="formModal" class="hidden modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="modal-content bg-slate-800 w-1/2 p-4 rounded-xl shadow-lg">
+      <!-- Modal content goes here -->
+      <div class="modal-header">
+          <button id="closeFormModal" class="modal-close">
+            &times;
+          </button>
+        <h1 class="text-2xl font-semibold">Add Product</h1>
+      </div>
+      <div class="modal-body">
+        <!-- Form goes here -->
+        <form id="myForm" class="space-y-4">
+          <div class="form-group">
+            <p>Name: </p>
+            <input type="text" id="name" name="name" class="form-input text-slate-800">
+        </div>
+        <p>Stock: </p>
+        <div class="form-group">
+            <input type="number" id="stock" name="stock" class="form-input text-slate-800">
+        </div>
+        <p>Price: </p>
+        <div class="form-group">
+            <input type="number" id="price" name="price"class="form-input text-slate-800">
+        </div>
+        <p>Detail: </p>
+          <div class="form-group">
+            <input type="text" id="detail" name="detail" class="form-input text-slate-800">
+          </div>
+          <!-- Add more form fields as needed -->
+        </form>
+      </div>
+      <div class="modal-footer my-5">
+        <button id="submitForm" class="bg-slate-500 hover:bg-blue-700 font-bold rounded py-2 px-4">Submit</button>
+        <button id="cancelForm" class="bg-slate-500 hover:bg-blue-700 font-bold rounded py-2 px-4">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 <script>
-    function addProduct() {
+    const formModal = document.getElementById("formModal");
+    const openFormModalButton = document.getElementById("openFormModal");
+    const closeFormModalButton = document.getElementById("closeFormModal");
+    const submitFormButton = document.getElementById("submitForm");
+    const cancelFormButton = document.getElementById("cancelForm");
+    const form = document.getElementById("myForm");
+
+    // Function to open the form modal
+    function openFormModal() {
+    formModal.classList.remove("hidden");
+    }
+
+    // Function to close the form modal
+    function closeFormModal() {
+    formModal.classList.add("hidden");
+    }
+
+    // Function to handle form submission
+    function handleSubmit(event) {
+        event.preventDefault();
+        // Your form submission logic here
+        // You can use the form data with `new FormData(form)` or send it via AJAX
         fetch("{% url 'add_product_ajax' %}", {
             method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(refreshProducts)
-
-        document.getElementById("form").reset()
+            body: new FormData(document.querySelector('#myForm'))
+        }).then(refreshProducts).then(closeFormModal)
+        document.getElementById("myForm").reset()
+        document.getElementById("submitForm").onclick = addProduct
+        closeFormModal(); // Close the modal after submission
         return false
     }
-    document.getElementById("button_add").onclick = addProduct
+
+    // Add click event listeners to open and close the form modal
+    openFormModalButton.addEventListener("click", openFormModal);
+    closeFormModalButton.addEventListener("click", closeFormModal);
+    submitFormButton.addEventListener("click", handleSubmit);
+    cancelFormButton.addEventListener("click", closeFormModal);  
     
     async function getProducts() {
         return fetch("{% url 'get_product_json' %}").then((res) => res.json())
@@ -189,7 +232,6 @@
         document.getElementById("product_table").innerHTML = htmlString
     }
     refreshProducts()
-    
 </script>
 
 {% endblock content %}
