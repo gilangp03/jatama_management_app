@@ -150,3 +150,8 @@ def create_product_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+
+def delete_all(request):
+    Product.objects.all().delete()
+    return HttpResponseRedirect(reverse('show_inventory'))
+    
